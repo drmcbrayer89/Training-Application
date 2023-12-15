@@ -135,7 +135,7 @@ void setWorkoutDifficulty(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
           main_sets = 10;
           main_reps = 2;
           supp_sets = 10;
-          supp_reps = 2;
+          supp_reps = 1;
           break;
         case DE_UPPER:
           break;
