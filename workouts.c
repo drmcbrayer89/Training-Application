@@ -82,6 +82,17 @@ void buildDeLower(WORKOUT_T* workout, LIFTER_T* p_lifter)
   workout->ex[5].name = abs[rand() % 2];
 }
 
+void buildDeUpper(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
+{
+  p_workout->ex[0].name = "Bench Press";
+  p_workout->ex[1].name = "None";
+
+  p_workout->ex[2].name = "DB Press";
+  p_workout->ex[3].name = "EZ Bar Extensions";
+  p_workout->ex[4].name = "Lat Pulldowns";
+  p_workout->ex[5].name = "Side Laterals";
+}
+
 WORKOUT_T buildMeLower(WORKOUT_T* workout)
 {
 
@@ -109,6 +120,10 @@ void setWorkoutDifficulty(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
           supp_reps = 1;
           break;
         case DE_UPPER:
+          main_sets = 6;
+          main_reps = 3;
+          supp_sets = 0;
+          supp_reps = 0;
           break;
         default:
           break;
@@ -138,6 +153,10 @@ void setWorkoutDifficulty(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
           supp_reps = 1;
           break;
         case DE_UPPER:
+          main_sets = 10;
+          main_reps = 3;
+          supp_sets = 0;
+          supp_reps = 0;
           break;
         default:
           break;
@@ -201,6 +220,7 @@ WORKOUT_T getExercises(LIFTER_T* p_lifter)
       buildDeLower(&workout, p_lifter);
       break;
     case DE_UPPER:
+      buildDeUpper(&workout, p_lifter);
       break;
     default:
       printf("wrong entry\n");
