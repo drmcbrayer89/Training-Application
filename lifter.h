@@ -24,11 +24,6 @@ typedef struct
 typedef struct
 {
   PRIMARY_LIFT_MAX_T maxes;
-  WEAKPOINT_T weakpoint_squat;
-  WEAKPOINT_T weakpoint_bench;
-  WEAKPOINT_T weakpoint_dl;
-  float speed_waves[3][3];
-  READINESS_T readiness;
   int day;
   int week;
 } LIFTER_T;

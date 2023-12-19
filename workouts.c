@@ -9,6 +9,12 @@
 #define AUX_REP_DEFAULT 10
 #define SUPP_REP_DEFAULT 5
 
+char * rep_schemes[3] =
+{
+  "Top set of 1-5 reps",
+  "3-5x5-8",
+  "3-5x8-20"
+};
 
 char * bench_variations[4] =
 {
@@ -41,166 +47,110 @@ char * gm_variations[3] =
 
 char * upper_supplementary_matrix[4] =
 {
-  "Close Grip Bench\0",
-  "JM Press\0"
+  "Close Grip Bench",
+  "JM Press"
+};
+
+char * shoulders[3] =
+{
+  "db bench press",
+  "db incline press",
+  "db military press"
+};
+
+char * triceps[3] =
+{
+  "close grip pin press",
+  "close grip 2 board",
+  "close grip 3 board"
+};
+
+char * lats[3] = 
+{
+  "pulldowns",
+  "barbell rows",
+  "db shrugs"
+};
+
+char * biceps[3] =
+{
+  "hammer curls",
+  "ez bar curls",
+  "db curls"
+};
+
+char * upper_back[3] =
+{
+  "upright row",
+  "rear delt raises",
+  "face pulls"
 };
 
 char * hamstrings[3] = 
 {
-  "standing leg curl\0",
-  "db rdl\0",
-  "seated leg curl"
-};
-
-char * lowback[1] = 
-{
-  "45 degree back raise\0"
+  "standing leg curl",
+  "seated leg curl",
+  "45 degree back raise"
 };
 
 char * quads[3] =
 {
-  "leg extension\0",
-  "db squats\0",
+  "leg extension",
+  "db squats",
   "lunges"
 };
 
-char * abs[2] =
+char * core[3] =
 {
-  "sit-up\0",
-  "standing abs\0"
+  "sit-up",
+  "standing abs",
+  "weighted sit-up"
 };
 
 
-void buildDeLower(WORKOUT_T* workout, LIFTER_T* p_lifter)
+void buildSquatDay(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 {
-  workout->ex[0].name = squat_variations[1];
-  workout->ex[1].name = deadlift_variations[2];
-
-  workout->ex[2].name = hamstrings[rand() % 3];
-  workout->ex[3].name = quads[rand() % 3];
-  workout->ex[4].name = lowback[rand () % 1];
-  workout->ex[5].name = abs[rand() % 2];
+  p_workout->ex[0].name = squat_variations[rand() % 3];
+  p_workout->ex[1].name = quads[rand() % 3];
+  p_workout->ex[2].name = core[rand() % 2];
 }
 
-void buildDeUpper(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
+void buildVolumeBench(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 {
-  p_workout->ex[0].name = "Bench Press";
-  p_workout->ex[1].name = "None";
-
-  p_workout->ex[2].name = "DB Press";
-  p_workout->ex[3].name = "EZ Bar Extensions";
-  p_workout->ex[4].name = "Lat Pulldowns";
-  p_workout->ex[5].name = "Side Laterals";
+  p_workout->ex[0].name = bench_variations[0]; // close grip ftw
+  p_workout->ex[1].name = triceps[rand() % 3];
+  p_workout->ex[2].name = upper_back[rand() % 3];
 }
 
-WORKOUT_T buildMeLower(WORKOUT_T* workout)
+void buildDeadliftDay(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 {
-
+  p_workout->ex[0].name = deadlift_variations[rand() % 3];
+  p_workout->ex[1].name = hamstrings[rand() % 3];
+  p_workout->ex[2].name = core[rand() % 3];
 }
 
-void setWorkoutDifficulty(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
+void buildHeavyBench(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 {
-  int main_sets = -1;
-  int main_reps = -1;
-  int supp_sets, supp_reps, aux_sets, aux_reps, fluff_sets, fluff_reps;
+  p_workout->ex[0].name = bench_variations[rand() % 3];
+  p_workout->ex[1].name = shoulders[rand() % 3];
+  p_workout->ex[2].name = lats[rand() % 3];
+}
 
-  switch(p_lifter->readiness)
+void setRepSchemes(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
+{
+
+  if(p_lifter->day == VOLUME_BENCH_DAY)
   {
-    case AWFUL:
-      switch(p_lifter->day)
-      {
-        case ME_LOWER:
-          break;
-        case ME_UPPER:
-          break;
-        case DE_LOWER:
-          main_sets = 5;
-          main_reps = 2;
-          supp_sets = 5;
-          supp_reps = 1;
-          break;
-        case DE_UPPER:
-          main_sets = 6;
-          main_reps = 3;
-          supp_sets = 0;
-          supp_reps = 0;
-          break;
-        default:
-          break;
-      }
-      
-      // aux work (skip)
-      aux_sets = 0; // drop sets
-      aux_reps = 0; // double reps (lighter)
-      // fluff work
-      fluff_sets = SETS_DEFAULT - 2;
-      fluff_reps = 25; // default to 25 reps
-      break;
-    case BAD:
-
-      break;
-    case NORMAL:
-      switch(p_lifter->day)
-      {
-        case ME_LOWER:
-          break;
-        case ME_UPPER:
-          break;
-        case DE_LOWER:
-          main_sets = 10;
-          main_reps = 2;
-          supp_sets = 10;
-          supp_reps = 1;
-          break;
-        case DE_UPPER:
-          main_sets = 10;
-          main_reps = 3;
-          supp_sets = 0;
-          supp_reps = 0;
-          break;
-        default:
-          break;
-      }
-      
-      // aux work (skip)
-      aux_sets = SETS_DEFAULT; // drop sets
-      aux_reps = AUX_REP_DEFAULT; // double reps (lighter)
-      // fluff work
-      fluff_sets = SETS_DEFAULT;
-      fluff_reps = FLUFF_REP_DEFAULT; // default to 25 reps
-      break;
-    case GREAT:
-
-      break;
-    default:
-      break;
+    p_workout->ex[0].description = rep_schemes[SUPPLEMENTAL];
+    p_workout->ex[1].description = rep_schemes[SUPPLEMENTAL];
+  }
+  else
+  {
+    p_workout->ex[0].description = rep_schemes[PRIMARY];
+    p_workout->ex[1].description = rep_schemes[AUX];
   }
 
-
-  int i = 0;
-  for(i; i < MAX_EX; i++)
-  {
-    switch(i)
-    {
-      case 0:
-        p_workout->ex[i].sets = main_sets;
-        p_workout->ex[i].reps = main_reps;
-        break;
-      case 1:
-        p_workout->ex[i].sets = supp_sets;
-        p_workout->ex[i].reps = supp_reps;
-        break;
-      case 2:
-      case 3:
-        p_workout->ex[i].sets = aux_sets;
-        p_workout->ex[i].reps = aux_reps;
-        break;
-      default:
-        p_workout->ex[i].sets = fluff_sets;
-        p_workout->ex[i].reps = fluff_reps;
-        break;
-    }
-  }
+  p_workout->ex[2].description = rep_schemes[AUX];
 }
 
 WORKOUT_T getExercises(LIFTER_T* p_lifter)
@@ -212,15 +162,17 @@ WORKOUT_T getExercises(LIFTER_T* p_lifter)
 
   switch(p_lifter->day) // what day are we doing?
   {
-    case ME_LOWER:
+    case DEADLIFT_DAY:
+      buildDeadliftDay(&workout, p_lifter);
       break;
-    case ME_UPPER:
+    case HEAVY_BENCH_DAY:
+      buildHeavyBench(&workout, p_lifter);
       break;
-    case DE_LOWER:
-      buildDeLower(&workout, p_lifter);
+    case SQUAT_DAY:
+      buildSquatDay(&workout, p_lifter);
       break;
-    case DE_UPPER:
-      buildDeUpper(&workout, p_lifter);
+    case VOLUME_BENCH_DAY:
+      buildVolumeBench(&workout, p_lifter);
       break;
     default:
       printf("wrong entry\n");

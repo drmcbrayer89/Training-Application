@@ -2,16 +2,18 @@
 
 #define MAX_EX 6
 
+typedef enum
+{
+  PRIMARY,
+  SUPPLEMENTAL,
+  AUX
+} EXERCISE_TYPES_ENUM;
+
 typedef struct
 {
   char *name;
   char *description;
-  int weight;
-  int sets;
-  int reps;
-  int rpe;
-  char *sets_s;
-  char *reps_s;
+  EXERCISE_TYPES_ENUM type;
 } EXERCISE_T;
 
 typedef enum
@@ -29,10 +31,10 @@ typedef enum
 
 typedef enum
 {
-  ME_LOWER = 1,
-  ME_UPPER,
-  DE_LOWER,
-  DE_UPPER
+  DEADLIFT_DAY = 1,
+  HEAVY_BENCH_DAY,
+  SQUAT_DAY,
+  VOLUME_BENCH_DAY
 } WORKOUT_DAYS_ENUM;
 
 extern char* max_effort_lower_matrix[4];
@@ -51,4 +53,4 @@ typedef struct
 } MAX_WORKOUT_T;
 
 extern WORKOUT_T getExercises(LIFTER_T* p_lifter);
-extern void setWorkoutDifficulty(WORKOUT_T* p_workout, LIFTER_T* p_lifter);
+extern void setRepSchemes(WORKOUT_T* p_workout, LIFTER_T* p_lifter);
