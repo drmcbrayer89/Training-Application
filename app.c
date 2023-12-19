@@ -3,35 +3,6 @@
 #include <stdlib.h>
 #include "workouts.h"
 
-/*
-void importLifterFile(LIFTER_T *lifter)
-{
-  char *found[3];
-  char *input;
-  char buff[16];
-  // Read starting numbers
-  FILE *p_file = fopen("input.txt", "a+");
-  if (p_file != NULL)
-  {
-    fscanf(p_file, "%s", buff);
-  }
-  else
-  {
-    printf("null file");
-  }
-
-  int i = 0;
-  input = buff;
-  while ((found[i] = strsep(&input, ",")) != NULL)
-  {
-    i++;
-  }
-
-  lifter->maxes.squat = atoi(found[0]) * 5 * 0.0333 + atoi(found[0]);
-  lifter->maxes.bench = atoi(found[1]) * 5 * 0.0333 + atoi(found[1]);
-  lifter->maxes.deadlift = atoi(found[2]) * 5 * 0.0333 + atoi(found[2]);
-}
-*/
 
 void printWorkout(WORKOUT_T* workout)
 {
@@ -59,10 +30,7 @@ void printWorkout(WORKOUT_T* workout)
 
 int main(void)
 {
-  LIFTER_T *p_lifter = malloc(sizeof(LIFTER_T));
-  // Get the lifter's current maximum contest lift values
-  //importLifterFile(p_lifter);
-  
+  WORKOUT_T workout;
   // User selection
   printf("What kind of workout?\n");
   printf("---------------------\n");
@@ -72,13 +40,12 @@ int main(void)
     3 - squat\n\
     4 - volume bench\n");
   printf("selection: ");
-  scanf("%d", &p_lifter->day);
+  scanf("%d", &workout.day);
   
   printf("\n");
-  
+
   // Generate workout
-  WORKOUT_T workout = getExercises(p_lifter);
-  setRepSchemes(&workout, p_lifter);
+  workout = getExercises(workout.day);
+  setRepSchemes(&workout);
   printWorkout(&workout);
-  free(p_lifter);
 }
