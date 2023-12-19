@@ -85,7 +85,7 @@ char * upper_back[3] =
 char * hamstrings[3] = 
 {
   "standing leg curl",
-  "seated leg curl",
+  "good mornings",
   "45 degree back raise"
 };
 
