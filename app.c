@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "workouts.h"
 
+/*
 void importLifterFile(LIFTER_T *lifter)
 {
   char *found[3];
@@ -30,6 +31,7 @@ void importLifterFile(LIFTER_T *lifter)
   lifter->maxes.bench = atoi(found[1]) * 5 * 0.0333 + atoi(found[1]);
   lifter->maxes.deadlift = atoi(found[2]) * 5 * 0.0333 + atoi(found[2]);
 }
+*/
 
 void printWorkout(WORKOUT_T* workout)
 {
@@ -59,10 +61,11 @@ int main(void)
 {
   LIFTER_T *p_lifter = malloc(sizeof(LIFTER_T));
   // Get the lifter's current maximum contest lift values
-  importLifterFile(p_lifter);
+  //importLifterFile(p_lifter);
   
   // User selection
   printf("What kind of workout?\n");
+  printf("---------------------\n");
   printf("\
     1 - deadlifts\n\
     2 - heavy bench\n\
@@ -77,4 +80,5 @@ int main(void)
   WORKOUT_T workout = getExercises(p_lifter);
   setRepSchemes(&workout, p_lifter);
   printWorkout(&workout);
+  free(p_lifter);
 }

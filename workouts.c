@@ -7,7 +7,7 @@ char * rep_schemes[3] =
 {
   "Top set of 1-5 reps",
   "3-5x5-8",
-  "3-5x8-20"
+  "3-5x8-15"
 };
 
 char * bench_variations[4] =
