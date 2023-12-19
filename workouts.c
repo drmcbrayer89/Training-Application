@@ -3,12 +3,6 @@
 #include "time.h"
 #include "workouts.h"
 
-#define MAX_EFFORT_DEFAULT 1
-#define SETS_DEFAULT 4
-#define FLUFF_REP_DEFAULT 15
-#define AUX_REP_DEFAULT 10
-#define SUPP_REP_DEFAULT 5
-
 char * rep_schemes[3] =
 {
   "Top set of 1-5 reps",
@@ -19,23 +13,25 @@ char * rep_schemes[3] =
 char * bench_variations[4] =
 {
   "close grip bench",
-  "football bar floor press",
+  "football bar bench press",
   "paused bench press",
   "floor press"
 };
 
-char * deadlift_variations[3] =
+char * deadlift_variations[4] =
 {
   "2-inch deficit",
   "2-inch block pull",
-  "deadlift"
+  "deadlift",
+  "4-inch deficit"
 };
 
-char * squat_variations[3] =
+char * squat_variations[4] =
 {
   "cambered bar box squat",
-  "buffalo bar / squat bar box squat",
-  "safety squat bar box squat"
+  "squat bar box squat",
+  "safety squat bar box squat",
+  "buffalo bar box squat"
 };
 
 char * gm_variations[3] = 
@@ -110,7 +106,7 @@ char * core[3] =
 
 void buildSquatDay(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 {
-  p_workout->ex[0].name = squat_variations[rand() % 3];
+  p_workout->ex[0].name = squat_variations[rand() % 4];
   p_workout->ex[1].name = quads[rand() % 3];
   p_workout->ex[2].name = core[rand() % 2];
 }
@@ -124,14 +120,14 @@ void buildVolumeBench(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 
 void buildDeadliftDay(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 {
-  p_workout->ex[0].name = deadlift_variations[rand() % 3];
+  p_workout->ex[0].name = deadlift_variations[rand() % 4];
   p_workout->ex[1].name = hamstrings[rand() % 3];
   p_workout->ex[2].name = core[rand() % 3];
 }
 
 void buildHeavyBench(WORKOUT_T* p_workout, LIFTER_T* p_lifter)
 {
-  p_workout->ex[0].name = bench_variations[rand() % 3];
+  p_workout->ex[0].name = bench_variations[rand() % 4];
   p_workout->ex[1].name = shoulders[rand() % 3];
   p_workout->ex[2].name = lats[rand() % 3];
 }
