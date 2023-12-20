@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "time.h"
-#include "workouts.h"
+#include "file_io.h"
 
 char * rep_schemes[3] =
 {
@@ -96,6 +96,12 @@ void buildSquatDay(WORKOUT_T* p_workout)
   p_workout->ex[0].name = squat_variations[rand() % 4];
   p_workout->ex[1].name = quads[rand() % 3];
   p_workout->ex[2].name = core[rand() % 2];
+
+  while(checkDuplicateMainLift(p_workout))
+  {
+    printf("Retrying...\n");
+    p_workout->ex[0].name = squat_variations[rand() % 4];
+  }
 }
 
 void buildVolumeBench(WORKOUT_T* p_workout)
@@ -110,6 +116,12 @@ void buildDeadliftDay(WORKOUT_T* p_workout)
   p_workout->ex[0].name = deadlift_variations[rand() % 4];
   p_workout->ex[1].name = hamstrings[rand() % 3];
   p_workout->ex[2].name = core[rand() % 3];
+
+    while(checkDuplicateMainLift(p_workout))
+  {
+    printf("Retrying...\n");
+    p_workout->ex[0].name = deadlift_variations[rand() % 4];
+  }
 }
 
 void buildHeavyBench(WORKOUT_T* p_workout)
@@ -117,6 +129,12 @@ void buildHeavyBench(WORKOUT_T* p_workout)
   p_workout->ex[0].name = bench_variations[rand() % 4];
   p_workout->ex[1].name = shoulders[rand() % 3];
   p_workout->ex[2].name = lats[rand() % 3];
+
+  while(checkDuplicateMainLift(p_workout))
+  {
+    printf("Retrying...\n");
+    p_workout->ex[0].name = bench_variations[rand() % 4];
+  }
 }
 
 void setRepSchemes(WORKOUT_T* p_workout)
@@ -141,27 +159,30 @@ WORKOUT_T getExercises(WORKOUT_DAYS_ENUM day)
   // init random numbers
   srand(time(NULL));
 
-  WORKOUT_T workout;
+  WORKOUT_T * p_workout;
+  // preserve this til i stop being lazy
+  p_workout->day = day;
 
   switch(day) // what day are we doing?
   {
     case DEADLIFT_DAY:
-      buildDeadliftDay(&workout);
+      buildDeadliftDay(p_workout);
       break;
     case HEAVY_BENCH_DAY:
-      buildHeavyBench(&workout);
+      buildHeavyBench(p_workout);
       break;
     case SQUAT_DAY:
-      buildSquatDay(&workout);
+      buildSquatDay(p_workout);
       break;
     case VOLUME_BENCH_DAY:
-      buildVolumeBench(&workout);
+      buildVolumeBench(p_workout);
       break;
     default:
       printf("wrong entry\n");
       break;
   }
-  // preserve this til i stop being lazy
-  workout.day = day;
-  return workout;
+
+  saveWorkoutLog(p_workout);
+  
+  return (*p_workout);
 }

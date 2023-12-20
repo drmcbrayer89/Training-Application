@@ -1,5 +1,3 @@
-#include "lifter.h"
-
 #define MAX_EX 6
 
 typedef enum

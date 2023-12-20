@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "workouts.h"
+#include "file_io.h"
 
 
 void printWorkout(WORKOUT_T* workout)
@@ -28,13 +28,6 @@ void printWorkout(WORKOUT_T* workout)
   printf(free_time);
 }
 
-void recordWorkout(WORKOUT_T workout)
-{
-  //FILE * p_output = NULL;
-
-
-}
-
 int main(void)
 {
   WORKOUT_DAYS_ENUM day;
@@ -55,7 +48,4 @@ int main(void)
   WORKOUT_T workout = getExercises(day);
   setRepSchemes(&workout);
   printWorkout(&workout);
-
-  // Store workout into log files
-
 }
