@@ -28,9 +28,16 @@ void printWorkout(WORKOUT_T* workout)
   printf(free_time);
 }
 
+void recordWorkout(WORKOUT_T workout)
+{
+  //FILE * p_output = NULL;
+
+
+}
+
 int main(void)
 {
-  WORKOUT_T workout;
+  WORKOUT_DAYS_ENUM day;
   // User selection
   printf("What kind of workout?\n");
   printf("---------------------\n");
@@ -40,12 +47,15 @@ int main(void)
     3 - squat\n\
     4 - volume bench\n");
   printf("selection: ");
-  scanf("%d", &workout.day);
+  scanf("%d", &day);
   
   printf("\n");
 
   // Generate workout
-  workout = getExercises(workout.day);
+  WORKOUT_T workout = getExercises(day);
   setRepSchemes(&workout);
   printWorkout(&workout);
+
+  // Store workout into log files
+
 }
