@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "time.h"
 #include "file_io.h"
 
@@ -43,7 +44,7 @@ char * shoulders[3] =
 
 char * triceps[3] =
 {
-  "close grip pin press",
+  "close grip 4 board",
   "close grip 2 board",
   "close grip 3 board"
 };
@@ -90,6 +91,13 @@ char * core[3] =
   "weighted sit-up"
 };
 
+char * kettlebells[3] =
+{
+  "double hand swing",
+  "alternating swing",
+  "kettlebell squat"
+};
+
 
 void buildSquatDay(WORKOUT_T* p_workout)
 {
@@ -117,7 +125,7 @@ void buildDeadliftDay(WORKOUT_T* p_workout)
   p_workout->ex[1].name = hamstrings[rand() % 3];
   p_workout->ex[2].name = core[rand() % 3];
 
-    while(checkDuplicateMainLift(p_workout))
+  while(checkDuplicateMainLift(p_workout))
   {
     printf("Retrying...\n");
     p_workout->ex[0].name = deadlift_variations[rand() % 4];
