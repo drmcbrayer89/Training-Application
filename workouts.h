@@ -16,10 +16,10 @@ typedef struct
 
 typedef enum
 {
-  DEADLIFT_DAY = 1,
-  HEAVY_BENCH_DAY,
-  SQUAT_DAY,
-  VOLUME_BENCH_DAY
+  MAX_LOWER,
+  MAX_UPPER,
+  SPEED_LOWER,
+  SPEED_UPPER
 } WORKOUT_DAYS_ENUM;
 
 typedef struct

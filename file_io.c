@@ -2,13 +2,14 @@
 #include <string.h>
 #include <sys/stat.h>
 #include "file_io.h"
+#include "workouts.h"
 
-void saveWorkoutLog(WORKOUT_T* p_workout)
+void saveWorkoutLog(int day)
 {
   FILE * p_file;
 
   char * mode = "a";
-
+  /*
   switch(p_workout->day)
   {
     case DEADLIFT_DAY:
@@ -28,12 +29,15 @@ void saveWorkoutLog(WORKOUT_T* p_workout)
   }
 
   fprintf(p_file, p_workout->ex[0].name);
+  */
+
   fprintf(p_file, "\n");
 
   fclose(p_file);
 }
 
-int checkDuplicateMainLift(WORKOUT_T* p_workout)
+//int checkDuplicateMainLift(WORKOUT_T* p_workout)
+int checkDuplicateMainLift(int day)
 {
   FILE * p_file;
   char * mode = "r+";
@@ -42,6 +46,7 @@ int checkDuplicateMainLift(WORKOUT_T* p_workout)
   char line[buffer_len];
   char buffer[3][buffer_len]; // only care about 3 weeks worth of info at a time
   
+  /*
   switch(p_workout->day)
   {
     case DEADLIFT_DAY:
@@ -59,6 +64,7 @@ int checkDuplicateMainLift(WORKOUT_T* p_workout)
     default:
       break;
   }
+  */
 
   // FUCK SEG FAULTS FROM FILE IO
   if(p_file == NULL)
@@ -81,7 +87,7 @@ int checkDuplicateMainLift(WORKOUT_T* p_workout)
   }
 
   char name[64];
-  strcpy(name, p_workout->ex[0].name);
+  //strcpy(name, p_workout->ex[0].name);
 
   int i = 0;
   int duplicate = 0;

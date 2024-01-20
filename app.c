@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "file_io.h"
+//#include "file_io.h"
+#include "workouts.h"
 
 
 void printWorkout(WORKOUT_T* workout)
@@ -35,17 +36,20 @@ int main(void)
   printf("What kind of workout?\n");
   printf("---------------------\n");
   printf("\
-    1 - deadlifts\n\
-    2 - heavy bench\n\
-    3 - squat\n\
-    4 - volume bench\n");
+    1 - Max Effort Lower\n\
+    2 - Max Effort Upper\n\
+    3 - Dynamic Effort Lower\n\
+    4 - Dynamic Effort Upper\n");
   printf("selection: ");
   scanf("%d", &day);
   
   printf("\n");
 
   // Generate workout
-  WORKOUT_T workout = getExercises(day);
+  WORKOUT_T workout = getExercises(day - 1); // fix index from menu
   setRepSchemes(&workout);
   printWorkout(&workout);
 }
+
+
+
