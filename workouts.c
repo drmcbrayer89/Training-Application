@@ -126,12 +126,6 @@ void buildMaxLower(WORKOUT_T* p_workout)
   p_workout->ex[1].name = low_back_heavy[rand() % 4];
   p_workout->ex[2].name = lats[rand() % 3];
   p_workout->ex[3].name = core[rand() % 3];
-
-  while(checkDuplicateMainLift(p_workout))
-  {
-    printf("Retrying...\n");
-    p_workout->ex[0].name = max_lower[rand() % 4];
-  }
 }
 
 void buildMaxUpper(WORKOUT_T* p_workout)
@@ -142,12 +136,6 @@ void buildMaxUpper(WORKOUT_T* p_workout)
   p_workout->ex[3].name = triceps_pump[rand() % 2];
   p_workout->ex[4].name = upper_back[rand() % 3];
   p_workout->ex[5].name = biceps[rand() % 3];
-
-  while(checkDuplicateMainLift(p_workout))
-  {
-    printf("Retrying...\n");
-    p_workout->ex[0].name = max_upper[rand() % 4];
-  }
 }
 
 void buildSpeedLower(WORKOUT_T* p_workout)
@@ -168,19 +156,26 @@ void buildSpeedUpper(WORKOUT_T* p_workout)
 
 void setRepSchemes(WORKOUT_T* p_workout)
 {
+  if(p_workout->day == MAX_LOWER || p_workout->day == MAX_UPPER)
+  {
+    p_workout->ex[0].description = "1 rep max";
+  }
 
-  // if(p_workout->day == VOLUME_BENCH_DAY)
-  // {
-  //   p_workout->ex[0].description = rep_schemes[SUPPLEMENTAL];
-  //   p_workout->ex[1].description = rep_schemes[SUPPLEMENTAL];
-  // }
-  // else
-  // {
-  //   p_workout->ex[0].description = rep_schemes[PRIMARY];
-  //   p_workout->ex[1].description = rep_schemes[AUX];
-  // }
-
-  // p_workout->ex[2].description = rep_schemes[AUX];
+  switch(p_workout->day)
+  {
+    case MAX_LOWER:
+      p_workout->ex[1].description = "work up to top 3-6 reps";
+      p_workout->ex[2].description = "3x10-15";
+      break;
+    case MAX_UPPER:
+      break;
+    case SPEED_LOWER:
+      break;
+    case SPEED_UPPER:
+      break;
+    default:
+      break;
+  }
 }
 
 WORKOUT_T getExercises(WORKOUT_DAYS_ENUM day)
@@ -211,7 +206,7 @@ WORKOUT_T getExercises(WORKOUT_DAYS_ENUM day)
       break;
   }
 
-  saveWorkoutLog(p_workout);
+  saveWorkoutLog(day);
   
   return (*p_workout);
 }

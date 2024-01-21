@@ -9,34 +9,30 @@ void saveWorkoutLog(int day)
   FILE * p_file;
 
   char * mode = "a";
-  /*
-  switch(p_workout->day)
+
+  switch((WORKOUT_DAYS_ENUM) day)
   {
-    case DEADLIFT_DAY:
-      p_file = fopen("deadlifts.log", mode);
+    case MAX_LOWER:
+      p_file = fopen("max_lower.log", mode);
       break;
-    case HEAVY_BENCH_DAY:
-      p_file = fopen("heavy_bench.log", mode);
+    case MAX_UPPER:
+      p_file = fopen("max_upper.log", mode);
       break;
-    case SQUAT_DAY:
-      p_file = fopen("squats.log", mode);
+    case SPEED_LOWER:
+      p_file = fopen("speed_lower.log", mode);
       break;
-    case VOLUME_BENCH_DAY:
-      p_file = fopen("volume_bench.log", mode);
+    case SPEED_UPPER:
+      p_file = fopen("speed_upper.log", mode);
       break;
     default:
       break;
   }
-
-  fprintf(p_file, p_workout->ex[0].name);
-  */
 
   fprintf(p_file, "\n");
 
   fclose(p_file);
 }
 
-//int checkDuplicateMainLift(WORKOUT_T* p_workout)
 int checkDuplicateMainLift(int day)
 {
   FILE * p_file;
